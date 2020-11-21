@@ -5,6 +5,7 @@ from numpy import float32, int32, ndarray
 from yaml import SafeLoader
 from yaml import load as yaml_load
 
+from .exceptions import YasodBadInput, YasodModelNotFound
 from .models import DetectionModelConfig, YasodConfig
 
 
@@ -18,14 +19,6 @@ class Detections(NamedTuple):
     class_ids: ndarray
     confidences: ndarray
     boxes: ndarray
-
-
-class YasodModelNotFound(Exception):
-    pass
-
-
-class YasodBadInput(Exception):
-    pass
 
 
 class YasodModel:
