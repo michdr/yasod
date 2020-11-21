@@ -62,13 +62,13 @@ class YasodModel:
             )
         ]
 
-    def label_detection(self, detection: Detection):
+    def label_detection(self, detection: Detection) -> str:
         return self.model_config.draw_defaults.label_format.format(
             self.class_names[detection.class_id + self.model_config.class_offset],
             detection.confidence,
         )
 
-    def draw_results(self, img: Any, detections: Detections, output_img_path: str):
+    def draw_results(self, img: Any, detections: Detections, output_img_path: str) -> None:
         for detection in self.flatten_detections(detections):
             label = self.label_detection(detection)
             cv2.rectangle(
