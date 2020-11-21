@@ -1,6 +1,13 @@
+import os
+
 import pytest
 
 from yasod import Yasod, YasodModel
+
+
+@pytest.fixture(scope="module", autouse=True)
+def initialize():
+    os.chdir("tests")
 
 
 @pytest.fixture
