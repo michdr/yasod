@@ -1,0 +1,18 @@
+version: 0
+
+detection_models:
+  - name: yolov4-tiny
+    description: Tiny version of YOLOv4
+    weights_path: data/yolov4-tiny.weights
+    config_path: data/yolov4-tiny.cfg
+    classes_path: data/yolov4-labels.txt
+    input_params:
+      scale: 0.00392156862745098
+      size:
+      - 416
+      - 416
+    detect_defaults:
+      confidence_threshold: 0.3
+      nms_threshold: 0.4
+    draw_defaults:
+      label_format: "{} | {:.1%}"
