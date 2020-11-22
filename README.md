@@ -1,6 +1,9 @@
 ![CI Status](https://github.com/michdr/yasod/workflows/CI/badge.svg)
 
 # yasod
+<!--- Don't edit the version line below manually. Let bump2version do it for you. -->
+> Version 0.0.0 
+>
 > Yet another simple object detector
 
 ## Installing
