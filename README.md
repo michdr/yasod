@@ -11,7 +11,7 @@ pip install yasod
 ## Getting started
 An example for a config and models could be found in `tests/data`. 
 
-Here is a simple example how to detect the objects of a given `input-image.jpg` and draw an output image accordingly.
+Here is a simple example how to detect the objects of a given `input-image.jpg` and draw an output image accordingly:
 ```python
 from yasod import Yasod
 
