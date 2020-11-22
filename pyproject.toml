@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "yasod"
-version = "0.0.1"
+version = "0.0.2"
 description = "Yet another simple object detector"
 authors = ["Michael Druk <2467184+michdr@users.noreply.github.com>"]
 license = "MIT"
