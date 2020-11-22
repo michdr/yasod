@@ -5,7 +5,7 @@ import pytest
 from yasod import Yasod, YasodModel
 
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture(scope="session", autouse=True)
 def initialize():
     os.chdir("tests")
 
