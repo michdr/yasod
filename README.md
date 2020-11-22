@@ -1,4 +1,5 @@
 ![CI Status](https://github.com/michdr/yasod/workflows/CI/badge.svg)
+[![PyPI version](https://img.shields.io/pypi/v/yasod)](https://pypi.org/project/yasod)
 
 # yasod
 <!--- Don't edit the version line below manually. Let bump2version do it for you. -->
