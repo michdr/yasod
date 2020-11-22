@@ -5,6 +5,17 @@ description = "Yet another simple object detector"
 authors = ["Michael Druk <2467184+michdr@users.noreply.github.com>"]
 license = "MIT"
 
+readme = "README.md"
+
+homepage = "https://github.com/michdr/yasod"
+repository = "https://github.com/michdr/yasod"
+documentation = "https://github.com/michdr/yasod"
+
+classifiers = [
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["computer vision", "object detection"]
+
 [tool.poetry.dependencies]
 python = "^3.7"
 opencv-python = "^4.4.0"
