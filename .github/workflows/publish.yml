@@ -28,7 +28,7 @@ jobs:
         run: |
           pytest tests/*.py
 
-  test_pypi_publish:
+  pypi_publish:
     needs:
       - build_and_test
     runs-on: ubuntu-latest
