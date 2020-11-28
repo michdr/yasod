@@ -1,7 +1,7 @@
-from typing import Any, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import cv2
-from numpy import ndarray
+from numpy import int32, ndarray
 from yaml import SafeLoader
 from yaml import load as yaml_load
 
@@ -51,11 +51,24 @@ class YasodModel:
             )
         ]
 
+    def get_class_name(self, class_id: int):
+        return self.class_names[class_id + self.model_config.class_offset]
+
     def label_detection(self, detection: Detection) -> str:
         return self.model_config.draw_defaults.label_format.format(
             self.class_names[detection.class_id + self.model_config.class_offset],
             detection.confidence,
         )
+
+    def get_object_detections_class_ids_counts(self, detections: Detections) -> Dict[int, int]:
+        classes_list = [d.class_id.astype(int) for d in self.flatten_detections(detections)]
+        counts = {k: classes_list.count(k) for k in set(classes_list)}
+        return counts
+
+    def get_object_detections_class_names_counts(self, detections: Detections) -> Dict[str, int]:
+        classes_counts = self.get_object_detections_class_ids_counts(detections)
+        labels_counts = {self.get_class_name(k): v for k, v in classes_counts.items()}
+        return labels_counts
 
     def draw_results(self, img: Any, detections: Detections, output_img_path: str) -> None:
         for detection in self.flatten_detections(detections):
