@@ -1,24 +1,13 @@
-from typing import Any, List, NamedTuple, Optional, Tuple, Union
+from typing import Any, List, Optional, Tuple, Union
 
 import cv2
-from numpy import float32, int32, ndarray
+from numpy import ndarray
 from yaml import SafeLoader
 from yaml import load as yaml_load
 
+from .common import Detection, Detections
 from .exceptions import YasodBadInput, YasodModelNotFound
 from .models import DetectionModelConfig, YasodConfig
-
-
-class Detection(NamedTuple):
-    class_id: int32
-    confidence: float32
-    box: ndarray
-
-
-class Detections(NamedTuple):
-    class_ids: ndarray
-    confidences: ndarray
-    boxes: ndarray
 
 
 class YasodModel:
