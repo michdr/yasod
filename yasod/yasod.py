@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import cv2
-from numpy import int32, ndarray
+from numpy import ndarray
 from yaml import SafeLoader
 from yaml import load as yaml_load
 
