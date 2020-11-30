@@ -4,8 +4,8 @@ import pytest
 from numpy import float32, int32
 from numpy.ma import array
 
-from yasod import Yasod, YasodModel
-from yasod.common import Detections
+from yasod import Yasod
+from yasod.common import Detections, flatten_detections
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -78,7 +78,7 @@ def test_simple_detect_and_draw(default_model):
         out_img_file = in_img_file.replace("input", "output")
         model.draw_results(img, detections, out_img_file)
         assert len(detections)
-        for detection in YasodModel.flatten_detections(detections):
+        for detection in flatten_detections(detections.class_ids, detections.confidences, detections.boxes):
             label = model.label_detection(detection)
             any(exp_cls in label for exp_cls in expected_results["expected_classes"])
         assert out_img_file
