@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.1] - 2020-11-30
+### Changed
+- Fix miscellaneous errros from the recent refactoring 
+
 ## [0.1.0] - 2020-11-30
 ### Added
 - Count object detections' class ids `YasodModel.get_object_detections_class_ids_counts`.
