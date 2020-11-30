@@ -1,24 +1,13 @@
-from typing import Any, List, NamedTuple, Optional, Tuple, Union
+from typing import Any, Dict, Optional, Tuple, Union
 
 import cv2
-from numpy import float32, int32, ndarray
+from numpy import ndarray
 from yaml import SafeLoader
 from yaml import load as yaml_load
 
+from .common import Detection, Detections, flatten_detections
 from .exceptions import YasodBadInput, YasodModelNotFound
 from .models import DetectionModelConfig, YasodConfig
-
-
-class Detection(NamedTuple):
-    class_id: int32
-    confidence: float32
-    box: ndarray
-
-
-class Detections(NamedTuple):
-    class_ids: ndarray
-    confidences: ndarray
-    boxes: ndarray
 
 
 class YasodModel:
@@ -51,16 +40,8 @@ class YasodModel:
         results = self.model.detect(img, **self.model_config.detect_defaults.dict())
         return img, Detections(*results)
 
-    @staticmethod
-    def flatten_detections(detections: Detections) -> List[Detection]:
-        return [
-            Detection(*d)
-            for d in zip(
-                detections.class_ids.flatten(),
-                detections.confidences.flatten(),
-                detections.boxes,
-            )
-        ]
+    def get_class_name(self, class_id: int):
+        return self.class_names[class_id + self.model_config.class_offset]
 
     def label_detection(self, detection: Detection) -> str:
         return self.model_config.draw_defaults.label_format.format(
@@ -68,8 +49,21 @@ class YasodModel:
             detection.confidence,
         )
 
+    def get_object_detections_class_ids_counts(self, detections: Detections) -> Dict[int, int]:
+        classes_list = [
+            d.class_id.astype(int)
+            for d in flatten_detections(self.class_ids, self.confidences, self.boxes, detections)
+        ]
+        counts = {k: classes_list.count(k) for k in set(classes_list)}
+        return counts
+
+    def get_object_detections_class_names_counts(self, detections: Detections) -> Dict[str, int]:
+        classes_counts = self.get_object_detections_class_ids_counts(detections)
+        labels_counts = {self.get_class_name(k): v for k, v in classes_counts.items()}
+        return labels_counts
+
     def draw_results(self, img: Any, detections: Detections, output_img_path: str) -> None:
-        for detection in self.flatten_detections(detections):
+        for detection in flatten_detections(self.class_ids, self.confidences, self.boxes, detections):
             label = self.label_detection(detection)
             cv2.rectangle(
                 img,
