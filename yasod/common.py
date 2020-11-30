@@ -16,12 +16,12 @@ class Detections(NamedTuple):
     boxes: ndarray
 
 
-def flatten_detections(class_ids, confidences, boxes) -> List[Detection]:
+def flatten_detections(detections: Detections) -> List[Detection]:
     return [
         Detection(*d)
         for d in zip(
-            class_ids.flatten(),
-            confidences.flatten(),
-            boxes,
+            detections.class_ids.flatten(),
+            detections.confidences.flatten(),
+            detections.boxes,
         )
     ]
