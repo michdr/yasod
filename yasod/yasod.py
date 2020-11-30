@@ -50,10 +50,7 @@ class YasodModel:
         )
 
     def get_object_detections_class_ids_counts(self, detections: Detections) -> Dict[int, int]:
-        classes_list = [
-            d.class_id.astype(int)
-            for d in flatten_detections(self.class_ids, self.confidences, self.boxes, detections)
-        ]
+        classes_list = [d.class_id.astype(int) for d in flatten_detections(detections)]
         counts = {k: classes_list.count(k) for k in set(classes_list)}
         return counts
 
@@ -63,7 +60,7 @@ class YasodModel:
         return labels_counts
 
     def draw_results(self, img: Any, detections: Detections, output_img_path: str) -> None:
-        for detection in flatten_detections(self.class_ids, self.confidences, self.boxes, detections):
+        for detection in flatten_detections(detections):
             label = self.label_detection(detection)
             cv2.rectangle(
                 img,
